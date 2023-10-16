@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='description' content='Projeto extensionista da Faculdade Metodista Granbery em parceria 
+        com a Escola Municipal Prefeito Dilermando Cruz Filho'>
+        <meta name='keywords' content='HTML5'>
+        <meta name='author' content='Alunos do curso de Sistemas de Informação - turma 2022 / 
+        Grupo: Lucas Leite Montes, João Vitor Barros, Pedro Lucas Atalaia, Pedro Henrique Teles'>
+        <title>Associação HUG</title>
+
+        <style>
+            .centered-text {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="centered-text">
+            <h1>Associação HUG</h1>
+        </div>
+        <br>
+
+        <div class='container'>
+            {% for publi in publicacao%}
+            <div class='row'>
+                <div class='com-lg-5 col-md-5 col-10'>
+                   <h3>
+                    {{publi.titulo}}
+                   </h3>
+                </div>
+                <div class='com-lg-5 col-md-5 col-10'>
+                    <p>
+                    {{publi.descricao}}
+                    </p>
+                </div>
+                <br>
+            {% endfor %}
+            </div>
+        </div>
+
+    </body>
+</html>
