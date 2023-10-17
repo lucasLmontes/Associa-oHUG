@@ -1,12 +1,7 @@
 from django.db import models
 
 class Materia(models.Model):
-    MATERIA = [
-        ('Geografia', ('Geografia')),
-        ('Matemática', ('Matemática')),
-        ('História', ('História')),
-    ]
-    selMateria = models.CharField(('Matéria'), max_length=100, choices=MATERIA, default='Matérias')
+    selMateria = models.CharField(('Matéria'), max_length=100)
 
     def __str__(self):
         return self.selMateria
@@ -23,7 +18,7 @@ class Pessoa(models.Model):
         return self.nome
 
 class Professor(Pessoa):
-    selMateria = models.CharField(('Matéria'), max_length=100, choices=Materia.MATERIA, default='Matérias')
+    materia = models.ManyToManyField(Materia)
 
     class Meta:
         verbose_name = 'Professor'
