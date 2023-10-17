@@ -18,9 +18,6 @@ class Pessoa(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = ('Professor')
-        verbose_name_plural = ('Professores')
-        ordering = ['id']
 
     def __str__(self):
         return self.nome
@@ -41,7 +38,7 @@ class Aluno(Pessoa):
 
 class Turma(models.Model):
     ano = models.CharField(('Ano'), default='9º ano')
-    professor = models.ForeignKey(Professor, null=True, on_delete=models.SET_NULL)
+    professor = models.ManyToManyField(Professor)
     alunos = models.ManyToManyField(Aluno)
 
     class Meta:
@@ -70,6 +67,7 @@ class Publicacao(models.Model):
         return self.titulo
 
 class Recado(models.Model):
+    resumo = models.CharField(('Resumo'), blank=True, max_length=30)
     texto = models.TextField(('Recado'), blank=True, max_length=200)
 
     class Meta:
@@ -77,7 +75,7 @@ class Recado(models.Model):
         verbose_name_plural = 'Recados'
 
     def __str__(self):
-        return self.texto
+        return self.resumo
 
 class Atividade(models.Model):
     titulo = models.CharField(('Atividade'), max_length=100)
