@@ -18,13 +18,13 @@
     </head>
     <body>
 
-        <div class="centered-text">
+        <div class='centered-text'>
             <h1>Associação HUG</h1>
         </div>
         <br>
 
-        <div class='container'>
-            {% for publi in publicacao%}
+        <div class='container-publicacao'>
+            {% for publi in publicacao %}
             <div class='row'>
                 <div class='com-lg-5 col-md-5 col-10'>
                    <h3>
@@ -34,6 +34,60 @@
                 <div class='com-lg-5 col-md-5 col-10'>
                     <p>
                     {{publi.descricao}}
+                    </p>
+                </div>
+                <br>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class='container-recado'>
+            {% for r in recado %}
+            <div class='row'>
+                <div class='com-lg-7 col-md-7 col-12'>
+                   <h4><span style="color: darkblue;">
+                    Recado: {{r.texto}}
+                   </span></h4>
+                </div>
+                <br>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class='container-atividade'>
+            {% for atv in atividade %}
+            <div class='row'>
+                <div class='com-lg-4 col-md-4 col-9'>
+                   <h3>
+                    {{atv.titulo}}
+                   </h3>
+                </div>
+                <div class='com-lg-4 col-md-4 col-9'>
+                    <p>
+                    {{atv.descricao}}
+                    </p>
+                </div>
+                <div class='com-lg-5 col-md-5 col-10'>
+                    <p><a href="{{atv.link}}">
+                    {{atv.link}}</a>
+                    </p>
+                </div>
+                <br>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class='container-apoiador'>
+            {% for ap in apoiador %}
+            <div class='row'>
+                <div class='com-lg-5 col-md-5 col-10'>
+                    <h2>
+                    {{ap.marca}}
+                    </h2>
+                </div>
+                <div class='com-lg-5 col-md-5 col-10'>
+                    <p>
+                    {{ap.contato}}
                     </p>
                 </div>
                 <br>

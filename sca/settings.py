@@ -79,9 +79,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sca',
         'USER': 'postgres',
-        'PASSWORD': 'HUG15',
+        'PASSWORD': 'HUG50',
         'HOST': 'localhost',
-        'PORT': '9812',
+        'PORT': '5432',
     }
 }
 
