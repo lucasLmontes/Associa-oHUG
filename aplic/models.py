@@ -1,13 +1,8 @@
 from django.db import models
-
-class Materia(models.Model):
-    selMateria = models.CharField(('Matéria'), max_length=100)
-
-    def __str__(self):
-        return self.selMateria
+import uuid
 
 class Pessoa(models.Model):
-    nome = models.CharField(('Nome'), max_length=100, default="Nome")
+    nome = models.CharField(('Nome'), max_length=100, default='Nome')
     dataNasc = models.DateField(('Data de Nascimento'), blank=True, null=True, help_text=('Formato DD/MM/AAAA'))
     email = models.EmailField(('Email'), blank=True, null=True, max_length=100)
 
@@ -17,34 +12,34 @@ class Pessoa(models.Model):
     def __str__(self):
         return self.nome
 
+class Turma(models.Model):
+    ano = models.CharField(('Ano'), max_length=50)
+
+    class Meta:
+        verbose_name = 'Turma'
+        verbose_name_plural = 'Turmas'
+    
+    def __str__(self):
+        return self.ano
+
 class Professor(Pessoa):
-    materia = models.ManyToManyField(Materia)
+    idProfessor = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    turma = models.ManyToManyField(Turma)
 
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
 
 class Aluno(Pessoa):
-    matricula = models.IntegerField(('Matrícula'), unique=True)
+    matricula = models.UUIDField(('Matrícula'), primary_key=True, default=uuid.uuid4, editable=False)
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Aluno'
         verbose_name_plural = 'Alunos'
 
-class Turma(models.Model):
-    ano = models.CharField(('Ano'), default='9º ano')
-    professor = models.ManyToManyField(Professor)
-    alunos = models.ManyToManyField(Aluno)
-
-    class Meta:
-        verbose_name = ('Turma')
-        verbose_name_plural = ('Turmas')
-
-    def __str__(self):
-        return self.ano
-
 class Responsavel(Pessoa):
-    responsavelPor = models.CharField(('Responsável por'), blank=True, max_length=100)
+    responsavelPor = models.ForeignKey(Aluno, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Responsável'
@@ -86,7 +81,7 @@ class Atividade(models.Model):
 
 class Apoiador(models.Model):
     marca = models.CharField(('Marca'), max_length=100)
-    contato = models.CharField(('Contato'), max_length=20, unique=True, help_text="Formato (00) 0000-0000")
+    contato = models.CharField(('Contato'), max_length=20, unique=True, help_text='Formato (00) 0000-0000')
     email = models.EmailField(('Email'), blank=True, null=True, max_length=100)
 
     class Meta:
