@@ -26,16 +26,11 @@
         <div class='container-publicacao'>
             {% for prof in professor %}
             <div class='row'>
+                <h4>
                 <div class='com-lg-5 col-md-5 col-10'>
-                   <h3>
-                    {{prof.nome}}
-                   </h3>
+                    {{prof.nome}} / {{prof.turma}}
                 </div>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <p>
-                    {{prof.turma}}
-                    </p>
-                </div>
+                </h4>
                 <br>
             {% endfor %}
             </div>

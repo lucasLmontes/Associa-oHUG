@@ -1,5 +1,4 @@
 from django.db import models
-import uuid
 
 class Pessoa(models.Model):
     nome = models.CharField(('Nome'), max_length=100, default='Nome')
@@ -23,31 +22,24 @@ class Turma(models.Model):
         return self.ano
 
 class Professor(Pessoa):
-    idProfessor = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    turma = models.ManyToManyField(Turma)
+    leciona = models.ManyToManyField(Turma)
 
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
 
 class Aluno(Pessoa):
-    matricula = models.UUIDField(('Matrícula'), primary_key=True, default=uuid.uuid4, editable=False)
+    matricula = models.IntegerField(('Matrícula'), unique=True, default='0000000')
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Aluno'
         verbose_name_plural = 'Alunos'
 
-class Responsavel(Pessoa):
-    responsavelPor = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Responsável'
-        verbose_name_plural = 'Responsáveis'
-
 class Publicacao(models.Model):
     titulo = models.CharField(('Título'), max_length=30, default='Título')
     descricao = models.TextField(('Descrição'), max_length=200)
+    imagem = models.ImageField(('Imagem'), upload_to='media/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Publicação'
@@ -85,8 +77,8 @@ class Apoiador(models.Model):
     email = models.EmailField(('Email'), blank=True, null=True, max_length=100)
 
     class Meta:
-        verbose_name = 'Apoiador'
-        verbose_name_plural = 'Apoiadores'
+        verbose_name = 'Apoio'
+        verbose_name_plural = 'Apoios'
 
     def __str__(self):
         return f' {self.marca} / {self.contato} '

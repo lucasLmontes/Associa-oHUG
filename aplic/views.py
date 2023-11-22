@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from aplic.models import Publicacao, Recado, Atividade, Apoiador, Professor, Aluno
+from aplic.models import Publicacao, Recado, Atividade, Apoiador, Turma, Professor, Aluno
 
 def index(request):
     publicacao=Publicacao.objects.all()
@@ -15,9 +15,11 @@ def index(request):
     return render(request, 'index.html', context)
 
 def turma(request):
-    professor=Professor.objects.all()
-    aluno=Aluno.objects.all()
+    turma=Turma.objects.order_by('ano').all()
+    professor=Professor.objects.order_by('nome').all()
+    aluno=Aluno.objects.order_by('nome').all()
     context={
+        'turma': turma,
         'professor': professor,
         'aluno': aluno,
     }
