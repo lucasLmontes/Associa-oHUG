@@ -1,4 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, Group, Permission
+
+class Usuario(AbstractUser):
+    login = models.CharField(('Login'), max_length=100)
+    senha1 = models.CharField(('Senha'), max_length=100)
+    senha2 = models.CharField(('Confirmação da Senha'), max_length=100)
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name='custom_user_groups',
+    )
+
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='custom_user_permissions',
+    )
+
+    pass
 
 class Pessoa(models.Model):
     nome = models.CharField(('Nome'), max_length=100, default='Nome')

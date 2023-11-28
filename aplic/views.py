@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from aplic.models import Publicacao, Recado, Atividade, Apoiador, Turma, Professor, Aluno
+from aplic.forms import UsuarioForm
 
 def index(request):
     publicacao=Publicacao.objects.all()
@@ -24,3 +25,14 @@ def turma(request):
         'aluno': aluno,
     }
     return render(request, 'turma.html', context)
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UsuarioForm()
+
+    return render(request, 'cadastro.html', {'form': form})
