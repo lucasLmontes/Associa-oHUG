@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class Usuario(AbstractUser):
     login = models.CharField(('Login'), max_length=100)
-    senha1 = models.CharField(('Senha'), max_length=100)
-    senha2 = models.CharField(('Confirmação da Senha'), max_length=100)
 
     groups = models.ManyToManyField(
         Group,
@@ -16,9 +14,7 @@ class Usuario(AbstractUser):
         related_name='custom_user_permissions',
     )
 
-    pass
-
-class Pessoa(models.Model):
+class Perfil(models.Model):
     nome = models.CharField(('Nome'), max_length=100, default='Nome')
     dataNasc = models.DateField(('Data de Nascimento'), blank=True, null=True, help_text=('Formato DD/MM/AAAA'))
     email = models.EmailField(('Email'), blank=True, null=True, max_length=100)
@@ -39,14 +35,14 @@ class Turma(models.Model):
     def __str__(self):
         return self.ano
 
-class Professor(Pessoa):
+class Professor(Perfil):
     leciona = models.ManyToManyField(Turma)
 
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
 
-class Aluno(Pessoa):
+class Aluno(Perfil):
     matricula = models.IntegerField(('Matrícula'), unique=True, default='0000000')
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
 
@@ -54,32 +50,34 @@ class Aluno(Pessoa):
         verbose_name = 'Aluno'
         verbose_name_plural = 'Alunos'
 
-class Publicacao(models.Model):
-    titulo = models.CharField(('Título'), max_length=30, default='Título')
-    descricao = models.TextField(('Descrição'), max_length=200)
+class Acoes(models.Model):
+    titulo = models.CharField(('Título'), max_length=50, default='Título')
+    descricao = models.TextField(('Descrição'), max_length=250)
     imagem = models.ImageField(('Imagem'), upload_to='media/', blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Publicação'
-        verbose_name_plural = 'Publicações'
+        verbose_name = 'Ação'
+        verbose_name_plural = 'Ações'
 
     def __str__(self):
         return self.titulo
 
-class Recado(models.Model):
-    resumo = models.CharField(('Resumo'), blank=True, max_length=30)
-    texto = models.TextField(('Recado'), blank=True, max_length=200)
+class Aviso(models.Model):
+    preview = models.CharField(('Preview'), blank=True, max_length=50)
+    texto = models.TextField(('Aviso'), blank=True, max_length=500)
 
     class Meta:
-        verbose_name = 'Recado'
-        verbose_name_plural = 'Recados'
+        verbose_name = 'Aviso'
+        verbose_name_plural = 'Avisos'
 
     def __str__(self):
-        return self.resumo
+        return self.preview
 
 class Atividade(models.Model):
-    titulo = models.CharField(('Atividade'), max_length=100)
-    descricao = models.TextField(('Descrição'), blank=True, max_length=200)
+    titulo = models.CharField(('Atividade'), max_length=50)
+    descricao = models.TextField(('Descrição'), blank=True, max_length=250)
+    turma = models.ForeignKey(Turma, blank=True, null=True, on_delete=models.CASCADE)
+    referLink = models.CharField(('Referência do Link'), max_length=50, default='Atividade x')
     link = models.URLField(('Link da Atividade'))
 
     class Meta:
@@ -89,14 +87,15 @@ class Atividade(models.Model):
     def __str__(self):
         return self.titulo
 
-class Apoiador(models.Model):
-    marca = models.CharField(('Marca'), max_length=100)
-    contato = models.CharField(('Contato'), max_length=20, unique=True, help_text='Formato (00) 0000-0000')
-    email = models.EmailField(('Email'), blank=True, null=True, max_length=100)
+class Doacao(models.Model):
+    descricao = models.TextField(('Descrição'), max_length=500)
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, blank=True, null=True)
+    itens = models.CharField(('Itens'), max_length=500)
+    linkDoacoes = models.URLField(('Link para Doações'))
 
     class Meta:
-        verbose_name = 'Apoio'
-        verbose_name_plural = 'Apoios'
+        verbose_name = 'Doação'
+        verbose_name_plural = 'Doações'
 
     def __str__(self):
-        return f' {self.marca} / {self.contato} '
+        return self.aluno

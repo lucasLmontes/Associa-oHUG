@@ -1,28 +1,27 @@
 from django.shortcuts import render, redirect
-from aplic.models import Publicacao, Recado, Atividade, Apoiador, Turma, Professor, Aluno
+from aplic.models import Acoes, Aviso, Atividade, Turma, Professor, Aluno
 from aplic.forms import UsuarioForm
+from django.contrib.auth import login
 
 def index(request):
-    publicacao=Publicacao.objects.all()
-    recado=Recado.objects.all()
-    atividade=Atividade.objects.all()
-    apoiador=Apoiador.objects.all()
+    acao=Acoes.objects.all()
+    aviso=Aviso.objects.all()
     context={
-        'publicacao': publicacao,
-        'recado': recado,
-        'atividade': atividade,
-        'apoiador': apoiador,
+        'acoes': acao,
+        'avisos': aviso,
     }
     return render(request, 'index.html', context)
 
 def turma(request):
     turma=Turma.objects.order_by('ano').all()
-    professor=Professor.objects.order_by('nome').all()
-    aluno=Aluno.objects.order_by('nome').all()
+    professor=Professor.objects.order_by('leciona').all()
+    aluno=Aluno.objects.order_by('turma').all()
+    atividade=Atividade.objects.order_by('turma').all()
     context={
-        'turma': turma,
-        'professor': professor,
-        'aluno': aluno,
+        'turmas': turma,
+        'professores': professor,
+        'alunos': aluno,
+        'atividades': atividade,
     }
     return render(request, 'turma.html', context)
 
@@ -30,8 +29,9 @@ def cadastro(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()
+            login(request, user)
+            return redirect('complementar.html')
     else:
         form = UsuarioForm()
 

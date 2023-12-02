@@ -1,40 +1,53 @@
-<!DOCTYPE html>
-<html lang='pt-br'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <meta name='description' content='Projeto extensionista da Faculdade Metodista Granbery em parceria 
-        com a Escola Municipal Prefeito Dilermando Cruz Filho'>
-        <meta name='keywords' content='HTML5'>
-        <meta name='author' content='Alunos do curso de Sistemas de Informação - turma 2022 / 
-        Grupo: Lucas Leite Montes, João Vitor Barros, Pedro Lucas Atalaia, Pedro Henrique Teles'>
-        <title>Associação HUG</title>
+{% extends 'index.html' %}
 
-        <style>
-            .centered-text {
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
+{% block content %}
 
-        <div class='centered-text'>
-            <h1>Associação HUG</h1>
-        </div>
-        <br>
-
-        <div class='container-publicacao'>
-            {% for prof in professor %}
-            <div class='row'>
-                <h4>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    {{prof.nome}} / {{prof.turma}}
-                </div>
-                </h4>
-                <br>
-            {% endfor %}
+    {% for turma in turmas %}
+        <div class='row'>
+            <div class='box-size'>
+                <h3>{{ turma.ano }}</h3>
             </div>
         </div>
+    {% endfor %}
 
-    </body>
-</html>
+    {% for professor in professores %}
+        <div class='left-text'>
+            <div class='row'>
+                <div class='box-size'>
+                    <h4>
+                        {{ professor.nome }}
+                        {{ professor.leciona }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for aluno in alunos %}
+        <div class='right-text'>
+            <div class='row'>
+                <div class='box-size'>
+                    <h4>
+                        {{ aluno.nome }}
+                        {{ aluno.turma }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for atividade in atividades %}
+        <div class='bg-2'>
+            <div class='row'>
+                <div class='box-size'>
+                    <h4>
+                        {{ atividade.titulo }}
+                        <p>{{ atividade.descricao }}</p>
+                        <a href="{{ 'atividade.link' }}">{{ atividade.referLink }}</a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

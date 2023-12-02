@@ -8,97 +8,40 @@
         <meta name='keywords' content='HTML5'>
         <meta name='author' content='Alunos do curso de Sistemas de Informação - turma 2022 / 
         Grupo: Lucas Leite Montes, João Vitor Barros, Pedro Lucas Atalaia, Pedro Henrique Teles'>
-        <title>Associação HUG</title>
-
-        <style>
-            .centered-text {
-                text-align: center;
-            }
-        </style>
+        <title>Associação HUG - Página Inicial</title>
+        <link rel='stylesheet' href='styles.css'>
     </head>
     <body>
+        <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href='turma.html'>Turmas</a></li>
+            <li><a href='sobre.html'>Sobre Nós</a></li>
+          </ul>
 
-        <div class='centered-text'>
-            <h1>Associação HUG</h1>
-        </div>
-        <br>
+        {% block content %}
 
-        <div class='container-publicacao'>
-            {% for publi in publicacao %}
-            <div class='row'>
-                <div class='com-lg-5 col-md-5 col-10'>
-                   <h3>
-                    {{publi.titulo}}
-                   </h3>
+            {% for acao in acoes %}
+            <div class='bg-1'>
+                <div class='row'>
+                    <div class='box-size'>
+                        <img class='imagem' src="{{ acao.imagem.url }}" alt='imagem1'>
+                        <h3>{{ acao.titulo }}</h3>
+                        <p>{{ acao.descricao }}</p>
+                    </div>
                 </div>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <p>
-                    {{publi.descricao}}
-                    </p>
-                </div>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <p>
-                    <img src="{{publi.imagem.url}}">
-                    </p>
-                </div>
-                <br>
-            {% endfor %}
             </div>
-        </div>
-
-        <div class='container-recado'>
-            {% for r in recado %}
-            <div class='row'>
-                <div class='com-lg-7 col-md-7 col-12'>
-                   <h4><span style="color: darkblue;">
-                    Recado: {{r.texto}}
-                   </span></h4>
-                </div>
-                <br>
             {% endfor %}
-            </div>
-        </div>
 
-        <div class='container-atividade'>
-            {% for atv in atividade %}
-            <div class='row'>
-                <div class='com-lg-4 col-md-4 col-9'>
-                   <h3>
-                    {{atv.titulo}}
-                   </h3>
+            {% for aviso in avisos %}
+            <div class='bg-2'>
+                <div class='row'>
+                    <div class='box-size'>
+                        <h4><span style="color: darkblue;">{{ aviso.texto }}</span></h4>
+                    </div>
                 </div>
-                <div class='com-lg-4 col-md-4 col-9'>
-                    <p>
-                    {{atv.descricao}}
-                    </p>
-                </div>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <p><a href="{{atv.link}}">
-                    {{atv.link}}</a>
-                    </p>
-                </div>
-                <br>
+            </div>
             {% endfor %}
-            </div>
-        </div>
 
-        <div class='container-apoiador'>
-            {% for ap in apoiador %}
-            <div class='row'>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <h2>
-                    {{ap.marca}}
-                    </h2>
-                </div>
-                <div class='com-lg-5 col-md-5 col-10'>
-                    <p>
-                    {{ap.contato}}
-                    </p>
-                </div>
-                <br>
-            {% endfor %}
-            </div>
-        </div>
-
+        {% endblock %}
     </body>
 </html>
