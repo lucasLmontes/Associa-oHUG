@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang='pt-br'>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Associação HUG - Projeto Extensionista</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='description' content='Projeto extensionista da Faculdade Metodista Granbery em parceria 
+        com a Escola Municipal Prefeito Dilermando Cruz Filho'>
+        <meta name='keywords' content='HTML5'>
+        <meta name='author' content='Alunos do curso de Sistemas de Informação - turma 2022 / 
+        Grupo: Lucas Leite Montes, João Vitor Barros, Pedro Lucas Atalaia, Pedro Henrique Teles'>
+        <link rel='stylesheet' href="{% static 'css/header.css' %}">
+        <link rel='stylesheet' href="{% static 'css/styles.css' %}">
+        <link rel='stylesheet' href="{% static 'css/table.css' %}">
+        <link rel='stylesheet' href="{% static 'css/criar-atividade.css' %}">
+        <link rel='stylesheet' href="{% static 'css/cadastro.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    </head>
+    <body>
+        <div class="navbar">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'turma' %}">Turmas</a>
+            <a href="{% url 'contato' %}">Contato</a>
+            <div class="dropdown">
+              <button class="dropbtn">Mais
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="{% url 'membros-hug' %}">
+                  <i class='fa-solid fa-book'></i> Membros HUG
+                </a>
+                <a href="{% url 'sobre-escola' %}">
+                  <i class="fa-solid fa-pencil"></i> Sobre a Escola
+                </a>
+                <a href="http://granbery.edu.br" target='_blank'>
+                  <i class="fa-solid fa-user-tie"></i>Faculdade Metodista Granbery
+                </a>
+              </div>
+            </div> 
+            <a href="{% url 'cadastro' %}">Criar Conta</a>
+            <a href="{% url 'login' %}">Fazer Login</a>
+          </div>
+
+        <div class='margem'>{% block content %}{% endblock %}</div>
+    </body>
+</html>

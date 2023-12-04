@@ -1,0 +1,49 @@
+.margem {
+    margin-top: 50px;
+}
+
+/* Redimensionamento das informações */
+.box-size {
+    width: 50%;
+    max-width: 50%;
+    flex-basis: 100%;
+}
+
+/* Planos de Fundo */
+.bg-1 {
+    background-color: rgb(219, 219, 219);
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+.bg-2 {
+    background-color: #85c6f1;
+    padding: 10px;
+    margin-bottom: 0;
+}
+
+/* Ajuste de posicionamento na página */
+.centered-text {
+    text-align: center;
+}
+
+.left-text {
+    width: 30%;
+    float: left;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.right-text {
+    width: 70%;
+    float: right;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Configurações de imagem */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

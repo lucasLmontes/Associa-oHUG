@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h1>Detalhes da Doação</h1>
+    <p><strong>Descrição:</strong> {{ doacao.descricao }}</p>
+    <p><strong>Doação para:</strong> {{ doacao.aluno.nome }}</p>
+    <p><strong>Itens:</strong> {{ doacao.itens }}</p>
+    <p><strong>Data:</strong> {{ doacao.data }}</p>
+
+{% endblock %}

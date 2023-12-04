@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h2 class='centered-text'>Sobre Nós</h2>
+    <p>Sed varius vitae dui sit amet eleifend. Pellentesque tortor lorem, dapibus eget auctor a, porta id dui. 
+        Aliquam blandit a ex ut ullamcorper. Nullam tincidunt tortor neque. Morbi ultricies ipsum ac luctus
+         aliquam. In interdum, nisi eu ultrices faucibus, massa nulla lacinia libero, sed bibendum ipsum eros sed
+          enim. Proin ac erat ullamcorper, finibus ipsum porta, tempor dui. Donec et convallis ex. Cras id augue
+           mauris. In mi lacus, sagittis at luctus eget, euismod ac elit.</p>
+
+    <table id="hug">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Curso</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for lista_membro in lista_membros %}
+                <tr>
+                    <td>{{ lista_membro.nome }}</td>
+                    <td>{{ lista_membro.email }}</td>
+                    <td>{{ lista_membro.curso }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

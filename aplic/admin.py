@@ -1,10 +1,9 @@
 from django.contrib import admin
-from aplic.models import Professor, Aluno, Turma, Acoes, Aviso, Atividade, Doacao
+from aplic.models import Membroshug, Professor, Aluno, Turma, Acoes, Aviso, Atividade, Doacao
 
-class ProfessorAdmin(admin.ModelAdmin):
-    filter_horizontal = ('leciona',)
+admin.site.register(Membroshug)
 
-admin.site.register(Professor, ProfessorAdmin)
+admin.site.register(Professor)
 
 admin.site.register(Aluno)
 

@@ -1,16 +1,27 @@
-{% extends 'index.html' %}
-
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
-    <div class='centered-text'>
-        <h1>Associação HUG</h1>
-        <br>
-        <h2>Cadastro de Usuário</h2>
-        <form method='post' action="{% url 'cadastro.html' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type='submit'>Enviar</button>
-        </form>
-    </div>
+    <body id='log'>
+        <div class="login-container">
+            <h2>Cadastrar Usuário</h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">E-mail:</label>
+                <input type="text" id="email" name="email" required>
+                
+                <label for="password1">Senha:</label>
+                <input type="password1" id="password1" name="password1" required>
+
+                <label for="password2">Confirmação de Senha:</label>
+                <input type="password2" id="password2" name="password2" required>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </body>
 
 {% endblock %}

@@ -1,47 +1,37 @@
-<!DOCTYPE html>
-<html lang='pt-br'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <meta name='description' content='Projeto extensionista da Faculdade Metodista Granbery em parceria 
-        com a Escola Municipal Prefeito Dilermando Cruz Filho'>
-        <meta name='keywords' content='HTML5'>
-        <meta name='author' content='Alunos do curso de Sistemas de Informação - turma 2022 / 
-        Grupo: Lucas Leite Montes, João Vitor Barros, Pedro Lucas Atalaia, Pedro Henrique Teles'>
-        <title>Associação HUG - Página Inicial</title>
-        <link rel='stylesheet' href='styles.css'>
-    </head>
-    <body>
-        <ul>
-            <li><a class="active" href="index.html">Home</a></li>
-            <li><a href='turma.html'>Turmas</a></li>
-            <li><a href='sobre.html'>Sobre Nós</a></li>
-          </ul>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-        {% block content %}
+    {% for aviso in avisos %}
+    <span style="color: rgb(221, 39, 39);">
+        <h3>Avisos:</h3>
+        <h4>{{ aviso.texto }}</h4>
+    </span>
+    {% endfor %}
 
-            {% for acao in acoes %}
-            <div class='bg-1'>
-                <div class='row'>
-                    <div class='box-size'>
-                        <img class='imagem' src="{{ acao.imagem.url }}" alt='imagem1'>
-                        <h3>{{ acao.titulo }}</h3>
-                        <p>{{ acao.descricao }}</p>
-                    </div>
+    {% for acao in acoes %}
+    <div class='bg-1'>
+        <img src="{{ acao.imagem.url }}" alt='imagem1' style='width:40%;'>
+        <h3>{{ acao.titulo }}</h3>
+        <p>{{ acao.descricao }}</p>
+    </div>
+    {% endfor %}
+
+    <div class='bg-2'>
+        <h3 class='centered-text'>Realizando Sonhos</h3>
+        {% for doacao in doacoes %}
+            <div style='background-color: #ffffff;'>
+                <p><strong>Link para Detalhes:</strong> <a href="{% url 'doacao_detail' pk=doacao.pk %}">Detalhes</a></p>
+                <p>{{ doacao.descricao }}</p>
+                <br>
+                Itens: {{ doacao.itens }}
+                <br>
+                <a href="{{ doacao.linkDoacoes }}" target='_blank'>Doe aqui!</a>
+                <div style='background-color: #85c6f1;'>
+                    <br>
                 </div>
             </div>
-            {% endfor %}
+        {% endfor %}
+    </div>
 
-            {% for aviso in avisos %}
-            <div class='bg-2'>
-                <div class='row'>
-                    <div class='box-size'>
-                        <h4><span style="color: darkblue;">{{ aviso.texto }}</span></h4>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-        {% endblock %}
-    </body>
-</html>
+{% endblock %}

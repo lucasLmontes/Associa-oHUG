@@ -1,53 +1,41 @@
-{% extends 'index.html' %}
-
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
 
     {% for turma in turmas %}
-        <div class='row'>
-            <div class='box-size'>
-                <h3>{{ turma.ano }}</h3>
-            </div>
-        </div>
-    {% endfor %}
+    <div class="bloco-turma">
+        <h2>{{ turma }}</h2>
 
-    {% for professor in professores %}
-        <div class='left-text'>
-            <div class='row'>
-                <div class='box-size'>
-                    <h4>
-                        {{ professor.nome }}
-                        {{ professor.leciona }}
-                    </h4>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-
-    {% for aluno in alunos %}
-        <div class='right-text'>
-            <div class='row'>
-                <div class='box-size'>
-                    <h4>
+        <div class="alunos">
+            <h3>Alunos:</h3>
+                {% for aluno in alunos.all %}
+                    {% if aluno.turma == turma %}
                         {{ aluno.nome }}
-                        {{ aluno.turma }}
-                    </h4>
-                </div>
-            </div>
+                    {% endif %}
+                {% endfor %}
         </div>
-    {% endfor %}
 
-    {% for atividade in atividades %}
-        <div class='bg-2'>
-            <div class='row'>
-                <div class='box-size'>
-                    <h4>
-                        {{ atividade.titulo }}
-                        <p>{{ atividade.descricao }}</p>
-                        <a href="{{ 'atividade.link' }}">{{ atividade.referLink }}</a>
-                    </h4>
-                </div>
-            </div>
+        <div class="atividades">
+            <h3>Atividades:</h3>
+            {% for atividade in atividades.all %}
+                {% if atividade.turma == turma %}
+                    <div class='negrito'>{{ atividade.titulo }}</div>
+                    <p>{{ atividade.descricao }}</p>
+                    <a href="{{ atividade.link }}" target='_blank'>{{atividade.referLink}}</a>
+                {% endif %}
+            {% endfor %}
         </div>
+    </div>
     {% endfor %}
+    <div class='topo' style='margin-top: 40px;'>
+        <h3>Atividades Gerais:</h3>
+        {% for atividade in atividades.all %}
+            {% if not atividade.turma %}
+                <div class='negrito'>{{ atividade.titulo }}</div>
+                <p>{{ atividade.descricao }}</p>
+                <a href="{{ atividade.link }}">{{ atividade.referLink }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
 
 {% endblock %}

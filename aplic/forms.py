@@ -1,7 +1,16 @@
-from django.contrib.auth.forms import UserCreationForm
-from aplic.models import Usuario
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
+from aplic.models import Atividade
 
-class UsuarioForm(UserCreationForm):
+class CadastroForm(UserCreationForm):
+    email = forms.EmailField()
+
     class Meta:
-        model = Usuario
-        fields = ['login']
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+class LoginForm(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
